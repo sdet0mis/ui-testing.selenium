@@ -1,3 +1,4 @@
+import allure
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
@@ -14,7 +15,8 @@ class BasePage:
         self.URL = None
 
     def open_page(self) -> None:
-        self.driver.get(self.URL)
+        with allure.step(f"Открыть страницу {self.URL}"):
+            self.driver.get(self.URL)
 
     def page_is_opened(self) -> None:
         self.wait.until(EC.url_to_be(self.URL))
