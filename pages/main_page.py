@@ -1,3 +1,4 @@
+import allure
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -107,12 +108,15 @@ class MainPage(BasePage):
             self.find_element(self.MOST_POPULAR_COURSES_BLOCK)
         ).perform()
 
+    @allure.step("Нажать на кнопку Назад в блоке Most Popular Courses")
     def click_previous_most_popular_course_button(self) -> None:
         self.click(self.PREVIOUS_MOST_POPULAR_COURSE_BUTTON)
 
+    @allure.step("Нажать на кнопку Вперед в блоке Most Popular Courses")
     def click_next_most_popular_course_button(self) -> None:
         self.click(self.NEXT_MOST_POPULAR_COURSE_BUTTON)
 
+    @allure.step("Нажать на кнопку Lifetime Membership в меню All Courses")
     def click_lifetime_membership_button(self) -> None:
         self.action.move_to_element(
             self.find_element(self.ALL_COURSES_BUTTON)

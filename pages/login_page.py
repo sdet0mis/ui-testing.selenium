@@ -1,3 +1,4 @@
+import allure
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -26,15 +27,18 @@ class LoginPage(BasePage):
     def username_field_is_displayed(self) -> None:
         self.element_is_displayed(self.USERNAME_FIELD)
 
+    @allure.step("Ввести в поле username {username}")
     def enter_username_field(self, username: str) -> None:
         self.fill_field(self.USERNAME_FIELD, username)
 
     def password_field_is_displayed(self) -> None:
         self.element_is_displayed(self.PASSWORD_FIELD)
 
+    @allure.step("Ввести в поле password {password}")
     def enter_password_field(self, password: str) -> None:
         self.fill_field(self.PASSWORD_FIELD, password)
 
+    @allure.step("Ввести в поле username description {username_description}")
     def enter_username_description_field(
         self, username_description: str
     ) -> None:
@@ -45,6 +49,7 @@ class LoginPage(BasePage):
     def find_login_button(self) -> WebElement:
         return self.find_element(self.LOGIN_BUTTON)
 
+    @allure.step("Нажать на кнопку Login")
     def click_login_button(self) -> None:
         self.click(self.LOGIN_BUTTON)
 
@@ -54,5 +59,6 @@ class LoginPage(BasePage):
     def find_success_message(self) -> WebElement:
         return self.find_element(self.SUCCESS_MESSAGE)
 
+    @allure.step("Нажать на кнопку Logout")
     def click_logout_button(self) -> None:
         self.click(self.LOGOUT_BUTTON)
