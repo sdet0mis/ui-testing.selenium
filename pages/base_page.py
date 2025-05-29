@@ -24,6 +24,9 @@ class BasePage:
     def get_page_title(self) -> str:
         return self.driver.title
 
+    def get_page_url(self) -> str:
+        return self.driver.current_url
+
     def scroll_to_bottom(self) -> None:
         self.driver.execute_script(
             "window.scrollTo(0, document.body.scrollHeight);"

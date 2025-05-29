@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 from faker import Faker
@@ -57,3 +59,30 @@ class TestLoginPage:
         login_page.click_logout_button()
         login_page.username_field_is_displayed()
         login_page.password_field_is_displayed()
+
+    @allure.title("Авторизация с разными данными")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.parametrize(
+        "username, password",
+        [
+            ("angular", "password"),
+            (Faker().user_name(), Faker().password())
+        ]
+    )
+    def test_login_with_various_credentials(
+        self, login_page: LoginPage, username: str, password: str
+    ):
+        login_page.open_page()
+        login_page.enter_username_field(username)
+        login_page.enter_password_field(password)
+        login_page.enter_username_description_field(username)
+        login_page.click_login_button()
+        time.sleep(1)
+        if login_page.get_page_url() == "https://www.way2automation.com/angularjs-protractor/registeration/#/":  # noqa
+            message = login_page.find_success_message()
+            assert message.text == "You're logged in!!", \
+                f"Некорректное сообщение: {message.text}"
+        else:
+            message = login_page.find_error_message()
+            assert message.text == "Username or password is incorrect", \
+                f"Некорректное сообщение: {message.text}"
