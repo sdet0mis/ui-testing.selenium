@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 from faker import Faker
@@ -13,7 +15,6 @@ class TestLoginPage:
     @allure.title("Отображение полей ввода")
     @allure.severity(allure.severity_level.BLOCKER)
     def test_fields_are_displayed(self, login_page: LoginPage):
-        login_page.open_page()
         login_page.username_field_is_displayed()
         login_page.password_field_is_displayed()
         login_button_is_disabled = (
@@ -25,7 +26,6 @@ class TestLoginPage:
     @allure.title("Авторизация с валидными данными")
     @allure.severity(allure.severity_level.BLOCKER)
     def test_login_with_valid_credentials(self, login_page: LoginPage):
-        login_page.open_page()
         login_page.enter_username_field("angular")
         login_page.enter_password_field("password")
         login_page.enter_username_description_field("angular")
@@ -37,7 +37,6 @@ class TestLoginPage:
     @allure.title("Авторизация с невалидными данными")
     @allure.severity(allure.severity_level.CRITICAL)
     def test_login_with_invalid_credentials(self, login_page: LoginPage):
-        login_page.open_page()
         login_page.enter_username_field(Faker().user_name())
         login_page.enter_password_field(Faker().password())
         login_page.enter_username_description_field(Faker().user_name())
@@ -49,7 +48,6 @@ class TestLoginPage:
     @allure.title("Выход из аккаунта")
     @allure.severity(allure.severity_level.CRITICAL)
     def test_logout(self, login_page: LoginPage):
-        login_page.open_page()
         login_page.enter_username_field("angular")
         login_page.enter_password_field("password")
         login_page.enter_username_description_field("angular")
@@ -57,3 +55,37 @@ class TestLoginPage:
         login_page.click_logout_button()
         login_page.username_field_is_displayed()
         login_page.password_field_is_displayed()
+
+    @allure.title("Авторизация с разными данными")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.parametrize(
+        "username, password",
+        [
+            pytest.param(
+                "angular",
+                "password",
+                marks=pytest.mark.positive
+            ),
+            pytest.param(
+                Faker().user_name(),
+                Faker().password(),
+                marks=pytest.mark.negative
+            )
+        ]
+    )
+    def test_login_with_various_credentials(
+        self, login_page: LoginPage, username: str, password: str
+    ):
+        login_page.enter_username_field(username)
+        login_page.enter_password_field(password)
+        login_page.enter_username_description_field(username)
+        login_page.click_login_button()
+        time.sleep(1)  # Не успевает открыться страница успешной авторизации
+        if login_page.get_page_url() == login_page.URL:
+            message = login_page.find_error_message()
+            assert message.text == "Username or password is incorrect", \
+                f"Некорректное сообщение: {message.text}"
+        else:
+            message = login_page.find_success_message()
+            assert message.text == "You're logged in!!", \
+                f"Некорректное сообщение: {message.text}"
