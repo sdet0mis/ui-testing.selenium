@@ -1,0 +1,125 @@
+from selenium.webdriver.common.by import By
+
+from pages.base_page import BasePage
+
+
+class MainPage(BasePage):
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.URL = "https://www.way2automation.com/"
+        self.HEADER = (By.XPATH, "//div[@class='ast-above-header-wrap  ']")
+        self.HEADER_CONTACTS = [
+            "+919711-111-558",
+            "+919711-191-558",
+            "+1 646-480-0603",
+            "seleniumcoaching",
+            "trainer@way2automation.com"
+        ]
+        self.SOCIAL_ICONS = (By.XPATH, "//div[@class='header-social-inner-wrap element-social-inner-wrap social-show-label-false ast-social-color-type-custom ast-social-stack-none ast-social-element-style-filled']/a")  # noqa
+        self.SOCIAL_LINKS = [
+            "https://www.facebook.com/way2automation",
+            "https://in.linkedin.com/in/rahul-arora-0490b751",
+            "https://plus.google.com/u/0/+RamanAhujatheseleniumguru",
+            "https://www.youtube.com/c/seleniumappiumtutorialtraining"
+        ]
+        self.MENU = (By.XPATH, "//ul[@id='ast-hf-menu-1']")
+        self.ALL_COURSES_BUTTON = (
+            By.XPATH, "(//ul[@id='ast-hf-menu-1']/li)[2]"
+        )
+        self.LIFETIME_MEMBERSHIP_BUTTON = (
+            By.XPATH, "(//span[text()='Lifetime Membership'])[1]"
+        )
+        self.REG_BUTTON = (By.XPATH, "//div[@class='swiper-slide-contents']/a")
+        self.SELENIUM_COURSE_BLOCK = (
+            By.XPATH, "//div[@data-id='259f3103']/div"
+        )
+        self.MOST_POPULAR_COURSES_BLOCK = (
+            By.XPATH, "//div[@data-id='50827c4']"
+        )
+        self.ACTIVE_COURSE_IN_MOST_POPULAR_COURSES_BLOCK = (
+            By.XPATH,
+            "//div[@class='swiper-slide swiper-slide-active']"
+        )
+        self.PREVIOUS_COURSE_IN_MOST_POPULAR_COURSES_BLOCK = (
+            By.XPATH, "//div[@class='swiper-slide swiper-slide-prev']"
+        )
+        self.NEXT_COURSE_IN_MOST_POPULAR_COURSES_BLOCK = (
+            By.XPATH, "//div[@class='swiper-slide swiper-slide-next']"
+        )
+        self.PREVIOUS_MOST_POPULAR_COURSE_BUTTON = (
+            By.XPATH, "(//div[@aria-label='Previous slide'])[2]"
+        )
+        self.NEXT_MOST_POPULAR_COURSE_BUTTON = (
+            By.XPATH, "(//div[@aria-label='Next slide'])[2]"
+        )
+        self.FOOTER = (By.XPATH, "//div[@data-elementor-type='footer']")
+        self.FOOTER_CONTACTS = [
+            "CDR Complex, 3rd Floor, Naya Bans Market, Sector 15, Noida, Near sec-16 Metro Station",  # noqa
+            "+91 97111-11-558",
+            "+91 97111-91-558",
+            "trainer@way2automation.com",
+            "seleniumcoaching@gmail.com"
+        ]
+
+    def find_header(self):
+        return self.find_element(self.HEADER)
+
+    def header_is_displayed(self):
+        self.element_is_displayed(self.HEADER)
+
+    def find_social_icons(self):
+        return self.find_elements(self.SOCIAL_ICONS)
+
+    def find_menu(self):
+        return self.find_element(self.MENU)
+
+    def menu_is_displayed(self):
+        self.element_is_displayed(self.MENU)
+
+    def reg_button_is_displayed(self):
+        self.element_is_displayed(self.REG_BUTTON)
+
+    def selenium_course_block_is_displayed(self):
+        self.element_is_displayed(self.SELENIUM_COURSE_BLOCK)
+
+    def find_most_popular_courses_block(self):
+        return self.find_elements(self.MOST_POPULAR_COURSES_BLOCK)
+
+    def find_active_course_in_most_popular_courses_block(self):
+        return self.find_element(
+            self.ACTIVE_COURSE_IN_MOST_POPULAR_COURSES_BLOCK
+        )
+
+    def find_previous_course_in_most_popular_courses_block(self):
+        return self.find_element(
+            self.PREVIOUS_COURSE_IN_MOST_POPULAR_COURSES_BLOCK
+        )
+
+    def find_next_course_in_most_popular_courses_block(self):
+        return self.find_element(
+            self.NEXT_COURSE_IN_MOST_POPULAR_COURSES_BLOCK
+        )
+
+    def move_to_most_popular_courses_block(self):
+        self.action.move_to_element(
+            self.find_element(self.MOST_POPULAR_COURSES_BLOCK)
+        ).perform()
+
+    def click_previous_most_popular_course_button(self):
+        self.click(self.PREVIOUS_MOST_POPULAR_COURSE_BUTTON)
+
+    def click_next_most_popular_course_button(self):
+        self.click(self.NEXT_MOST_POPULAR_COURSE_BUTTON)
+
+    def click_lifetime_membership_button(self):
+        self.action.move_to_element(
+            self.find_element(self.ALL_COURSES_BUTTON)
+        ).pause(1).move_to_element(
+            self.find_element(self.LIFETIME_MEMBERSHIP_BUTTON)
+        ).pause(1).click().perform()
+
+    def find_footer(self):
+        return self.find_element(self.FOOTER)
+
+    def footer_is_displayed(self):
+        self.element_is_displayed(self.FOOTER)
