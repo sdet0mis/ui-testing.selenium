@@ -13,7 +13,6 @@ class TestMainPage:
     @allure.title("Отображение основных элементов на главной странице")
     @allure.severity(allure.severity_level.BLOCKER)
     def test_main_elements_are_displayed(self, main_page: MainPage):
-        main_page.open_page()
         main_page.header_is_displayed()
         main_page.menu_is_displayed()
         main_page.reg_button_is_displayed()
@@ -24,7 +23,6 @@ class TestMainPage:
     @allure.title("Проверка хедера")
     @allure.severity(allure.severity_level.CRITICAL)
     def test_check_header(self, main_page: MainPage):
-        main_page.open_page()
         contacts = main_page.find_header().get_attribute("textContent")
         for contact in main_page.HEADER_CONTACTS:
             assert contact in contacts, \
@@ -40,7 +38,6 @@ class TestMainPage:
     @allure.title("Проверка кнопок навигации в блоке с популярными курсами")
     @allure.severity(allure.severity_level.CRITICAL)
     def test_check_most_popular_courses_block(self, main_page: MainPage):
-        main_page.open_page()
         main_page.move_to_most_popular_courses_block()
         active_course_title = (
             main_page.find_active_course_in_most_popular_courses_block().text
@@ -67,7 +64,6 @@ class TestMainPage:
     @allure.title("Проверка футера")
     @allure.severity(allure.severity_level.CRITICAL)
     def test_check_footer(self, main_page: MainPage):
-        main_page.open_page()
         contacts = main_page.find_footer().get_attribute("textContent")
         for contact in main_page.FOOTER_CONTACTS:
             assert contact in contacts, \
@@ -77,7 +73,6 @@ class TestMainPage:
     @allure.title("Отображение меню после скроллинга")
     @allure.severity(allure.severity_level.NORMAL)
     def test_menu_is_displayed_after_scrolling(self, main_page: MainPage):
-        main_page.open_page()
         main_page.scroll_to_bottom()
         main_page.menu_is_displayed()
 
@@ -90,7 +85,6 @@ class TestMainPage:
         main_page: MainPage,
         lifetime_membership_page: LifetimeMembershipPage
     ):
-        main_page.open_page()
         main_page.click_lifetime_membership_button()
         lifetime_membership_page.page_is_opened()
         title = lifetime_membership_page.get_page_title()

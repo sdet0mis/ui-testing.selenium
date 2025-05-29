@@ -19,7 +19,9 @@ def driver() -> webdriver:
 
 @pytest.fixture
 def main_page(driver: webdriver) -> MainPage:
-    return MainPage(driver)
+    main_page = MainPage(driver)
+    main_page.open_page()
+    return main_page
 
 
 @pytest.fixture
@@ -29,4 +31,6 @@ def lifetime_membership_page(driver: webdriver) -> LifetimeMembershipPage:
 
 @pytest.fixture
 def login_page(driver: webdriver) -> LoginPage:
-    return LoginPage(driver)
+    login_page = LoginPage(driver)
+    login_page.open_page()
+    return login_page
