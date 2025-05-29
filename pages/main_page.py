@@ -1,10 +1,12 @@
+from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 
 
 class MainPage(BasePage):
-    def __init__(self, driver):
+    def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
         self.URL = "https://www.way2automation.com/"
         self.HEADER = (By.XPATH, "//div[@class='ast-above-header-wrap  ']")
@@ -61,65 +63,65 @@ class MainPage(BasePage):
             "seleniumcoaching@gmail.com"
         ]
 
-    def find_header(self):
+    def find_header(self) -> WebElement:
         return self.find_element(self.HEADER)
 
-    def header_is_displayed(self):
+    def header_is_displayed(self) -> None:
         self.element_is_displayed(self.HEADER)
 
-    def find_social_icons(self):
+    def find_social_icons(self) -> list[WebElement]:
         return self.find_elements(self.SOCIAL_ICONS)
 
-    def find_menu(self):
+    def find_menu(self) -> WebElement:
         return self.find_element(self.MENU)
 
-    def menu_is_displayed(self):
+    def menu_is_displayed(self) -> None:
         self.element_is_displayed(self.MENU)
 
-    def reg_button_is_displayed(self):
+    def reg_button_is_displayed(self) -> None:
         self.element_is_displayed(self.REG_BUTTON)
 
-    def selenium_course_block_is_displayed(self):
+    def selenium_course_block_is_displayed(self) -> None:
         self.element_is_displayed(self.SELENIUM_COURSE_BLOCK)
 
-    def find_most_popular_courses_block(self):
+    def find_most_popular_courses_block(self) -> WebElement:
         return self.find_elements(self.MOST_POPULAR_COURSES_BLOCK)
 
-    def find_active_course_in_most_popular_courses_block(self):
+    def find_active_course_in_most_popular_courses_block(self) -> WebElement:
         return self.find_element(
             self.ACTIVE_COURSE_IN_MOST_POPULAR_COURSES_BLOCK
         )
 
-    def find_previous_course_in_most_popular_courses_block(self):
+    def find_previous_course_in_most_popular_courses_block(self) -> WebElement:
         return self.find_element(
             self.PREVIOUS_COURSE_IN_MOST_POPULAR_COURSES_BLOCK
         )
 
-    def find_next_course_in_most_popular_courses_block(self):
+    def find_next_course_in_most_popular_courses_block(self) -> WebElement:
         return self.find_element(
             self.NEXT_COURSE_IN_MOST_POPULAR_COURSES_BLOCK
         )
 
-    def move_to_most_popular_courses_block(self):
+    def move_to_most_popular_courses_block(self) -> None:
         self.action.move_to_element(
             self.find_element(self.MOST_POPULAR_COURSES_BLOCK)
         ).perform()
 
-    def click_previous_most_popular_course_button(self):
+    def click_previous_most_popular_course_button(self) -> None:
         self.click(self.PREVIOUS_MOST_POPULAR_COURSE_BUTTON)
 
-    def click_next_most_popular_course_button(self):
+    def click_next_most_popular_course_button(self) -> None:
         self.click(self.NEXT_MOST_POPULAR_COURSE_BUTTON)
 
-    def click_lifetime_membership_button(self):
+    def click_lifetime_membership_button(self) -> None:
         self.action.move_to_element(
             self.find_element(self.ALL_COURSES_BUTTON)
         ).pause(1).move_to_element(
             self.find_element(self.LIFETIME_MEMBERSHIP_BUTTON)
         ).pause(1).click().perform()
 
-    def find_footer(self):
+    def find_footer(self) -> WebElement:
         return self.find_element(self.FOOTER)
 
-    def footer_is_displayed(self):
+    def footer_is_displayed(self) -> None:
         self.element_is_displayed(self.FOOTER)

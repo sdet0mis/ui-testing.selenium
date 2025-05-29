@@ -8,7 +8,7 @@ from pages.login_page import LoginPage
 
 
 @pytest.fixture()
-def driver():
+def driver() -> webdriver:
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
@@ -18,15 +18,15 @@ def driver():
 
 
 @pytest.fixture
-def main_page(driver):
+def main_page(driver: webdriver) -> MainPage:
     return MainPage(driver)
 
 
 @pytest.fixture
-def lifetime_membership_page(driver):
+def lifetime_membership_page(driver: webdriver) -> LifetimeMembershipPage:
     return LifetimeMembershipPage(driver)
 
 
 @pytest.fixture
-def login_page(driver):
+def login_page(driver: webdriver) -> LoginPage:
     return LoginPage(driver)
