@@ -24,9 +24,8 @@ class TestSQLPage:
             sql_page.enter_password(sql_page.PASSWORD)
             sql_page.click_enter_button()
             cookies.save_cookie(sql_page.get_cookie("PHPSESSID"))
-        nickname = (
-            sql_page.find_right_header()
-            .text[-(len(sql_page.NICKNAME)):]
-        )
+        right_header_text = sql_page.find_right_header().text
+        nickname_length = len(sql_page.NICKNAME)
+        nickname = right_header_text[-nickname_length:]
         assert nickname == sql_page.NICKNAME, \
             f"Некорректный никнейм: {nickname}"
