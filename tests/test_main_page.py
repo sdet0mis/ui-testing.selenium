@@ -90,3 +90,15 @@ class TestMainPage:
         title = lifetime_membership_page.get_page_title()
         assert "LIFETIME MEMBERSHIP CLUB" in title, \
             f"Некорректный заголовок страницы: {title}"
+
+    @allure.story("Отображение элементов")
+    @allure.title("Проверка блока Lifetime Membership")
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_check_lifetime_membership_block(
+        self,
+        main_page: MainPage
+    ):
+        description = main_page.find_lifetime_membership_block().text
+        assert (
+            description == main_page.LIFETIME_MEMBERSHIP_BLOCK_DESCRIPTION
+        ), f"Некорректное описание блока Lifetime Membership: {description}"

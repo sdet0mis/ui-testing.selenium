@@ -89,3 +89,14 @@ class TestLoginPage:
             message = login_page.find_success_message()
             assert message.text == "You're logged in!!", \
                 f"Некорректное сообщение: {message.text}"
+
+    @allure.story("Отображение элементов")
+    @allure.title("Отображение заголовка поля описания имени пользователя")
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_check_username_description_field_title(
+        self, login_page: LoginPage
+    ):
+        title = login_page.find_username_description_field_title()
+        assert title.text == "Username description", \
+            f"Некорректный заголовок поля описания имени пользователя: \
+                {title.text}"
