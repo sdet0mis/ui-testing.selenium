@@ -11,7 +11,8 @@ from pages.sql_page import SQLPage
 class TestSQLPage:
     @allure.title("Авторизация")
     @allure.severity(allure.severity_level.BLOCKER)
-    def test_login(self, sql_page: SQLPage):
+    @pytest.mark.parametrize("run", range(2))
+    def test_login(self, run: int, sql_page: SQLPage):
         try:
             cookie = cookies.get_cookie()
             sql_page.delete_cookie("PHPSESSID")
