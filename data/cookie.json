@@ -1,0 +1,9 @@
+{
+    "domain": "www.sql-ex.ru",
+    "httpOnly": false,
+    "name": "PHPSESSID",
+    "path": "/",
+    "sameSite": "Lax",
+    "secure": false,
+    "value": "sq6ntcqs86rs8v3e1q88ao4nui"
+}
