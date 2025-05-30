@@ -14,10 +14,11 @@ class TestSQLPage:
     @pytest.mark.parametrize("run", range(2))
     def test_login(self, run: int, sql_page: SQLPage):
         try:
-            cookie = cookies.get_cookie()
+            cookie = cookies.get_cookie_from_file()
             sql_page.delete_cookie("PHPSESSID")
             sql_page.add_cookie(cookie)
             sql_page.refresh_page()
+            cookies.delete_cookie_file()
         except FileNotFoundError:
             sql_page.enter_login(sql_page.LOGIN)
             sql_page.enter_password(sql_page.PASSWORD)
