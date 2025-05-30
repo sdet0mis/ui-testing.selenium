@@ -21,11 +21,23 @@ class BasePage:
     def page_is_opened(self) -> None:
         self.wait.until(EC.url_to_be(self.URL))
 
+    def refresh_page(self) -> None:
+        self.driver.refresh()
+
     def get_page_title(self) -> str:
         return self.driver.title
 
     def get_page_url(self) -> str:
         return self.driver.current_url
+
+    def get_cookie(self, name: str) -> dict:
+        return self.driver.get_cookie(name)
+
+    def add_cookie(self, cookie: dict) -> None:
+        self.driver.add_cookie(cookie)
+
+    def delete_cookie(self, name: str) -> None:
+        self.driver.delete_cookie(name)
 
     def scroll_to_bottom(self) -> None:
         self.driver.execute_script(

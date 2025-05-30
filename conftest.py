@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from pages.main_page import MainPage
 from pages.lifetime_membership_page import LifetimeMembershipPage
 from pages.login_page import LoginPage
+from pages.sql_page import SQLPage
 
 
 @pytest.fixture
@@ -50,3 +51,10 @@ def login_page(driver: webdriver) -> LoginPage:
     login_page = LoginPage(driver)
     login_page.open_page()
     return login_page
+
+
+@pytest.fixture
+def sql_page(driver: webdriver) -> SQLPage:
+    sql_page = SQLPage(driver)
+    sql_page.open_page()
+    return sql_page
