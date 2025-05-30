@@ -32,6 +32,15 @@ class MainPage(BasePage):
         self.LIFETIME_MEMBERSHIP_BUTTON = (
             By.XPATH, "(//span[text()='Lifetime Membership'])[1]"
         )
+        self.LIFETIME_MEMBERSHIP_BLOCK = (
+            By.XPATH, "(//div[@class='elementor-slide-description'])[1]"
+        )
+        self.LIFETIME_MEMBERSHIP_BLOCK_DESCRIPTION = """
+        LIFETIME MEMBERSHIP FOR LIVE TRAININGS IN JUST 7000 RS / 99 USD
+        1. Selenium with Core Java - starts 03rd May 2025 (Duration 3.5 Months)
+        2. API Automation Rest Assured - starts 10th May 2025 \
+            (Duration 2 Months)
+        """
         self.REG_BUTTON = (By.XPATH, "//div[@class='swiper-slide-contents']/a")
         self.SELENIUM_COURSE_BLOCK = (
             By.XPATH, "//div[@data-id='259f3103']/div"
@@ -78,6 +87,9 @@ class MainPage(BasePage):
 
     def menu_is_displayed(self) -> None:
         self.element_is_displayed(self.MENU)
+
+    def find_lifetime_membership_block(self) -> WebElement:
+        return self.find_element(self.LIFETIME_MEMBERSHIP_BLOCK)
 
     def reg_button_is_displayed(self) -> None:
         self.element_is_displayed(self.REG_BUTTON)

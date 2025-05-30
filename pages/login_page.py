@@ -15,6 +15,9 @@ class LoginPage(BasePage):
         self.USERNAME_DESCRIPTION_FIELD = (
             By.XPATH, "//input[@id='formly_1_input_username_0']"
         )
+        self.USERNAME_DESCRIPTION_FIELD_TITLE = (
+            By.XPATH, "//label[@class='control-label ']"
+        )
         self.LOGIN_BUTTON = (By.XPATH, "//button[@class='btn btn-danger']")
         self.ERROR_MESSAGE = (
             By.XPATH, "//div[@class='alert alert-danger ng-binding ng-scope']"
@@ -45,6 +48,9 @@ class LoginPage(BasePage):
         self.fill_field(
             self.USERNAME_DESCRIPTION_FIELD, username_description
         )
+
+    def find_username_description_field_title(self) -> WebElement:
+        return self.find_element(self.USERNAME_DESCRIPTION_FIELD_TITLE)
 
     def find_login_button(self) -> WebElement:
         return self.find_element(self.LOGIN_BUTTON)

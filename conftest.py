@@ -1,4 +1,6 @@
+import allure
 import pytest
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -7,14 +9,28 @@ from pages.lifetime_membership_page import LifetimeMembershipPage
 from pages.login_page import LoginPage
 
 
-@pytest.fixture()
-def driver() -> webdriver:
+@pytest.fixture
+def driver(request: pytest.FixtureRequest) -> webdriver:
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
     driver = webdriver.Chrome(options=options)
+    request.node.driver = driver
     yield driver
     driver.quit()
+
+
+@pytest.hookimpl(tryfirst=True)
+def pytest_runtest_makereport(
+    item: pytest.Item, call: pytest.CallInfo
+) -> None:
+    if call.when == "call" and call.excinfo is not None:
+        driver = item.driver
+        allure.attach(
+            driver.get_screenshot_as_png(),
+            "screenshot",
+            AttachmentType.PNG
+        )
 
 
 @pytest.fixture
