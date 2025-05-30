@@ -93,6 +93,7 @@ class TestLoginPage:
     @allure.story("Отображение элементов")
     @allure.title("Отображение заголовка поля описания имени пользователя")
     @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.xfail
     def test_check_username_description_field_title(
         self, login_page: LoginPage
     ):

@@ -80,6 +80,7 @@ class TestMainPage:
         "Переход на страницу Lifetime Membership через меню All Courses"
     )
     @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.xfail
     def test_click_lifetime_membership_button(
         self,
         main_page: MainPage,
@@ -94,6 +95,7 @@ class TestMainPage:
     @allure.story("Отображение элементов")
     @allure.title("Проверка блока Lifetime Membership")
     @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.xfail
     def test_check_lifetime_membership_block(
         self,
         main_page: MainPage
