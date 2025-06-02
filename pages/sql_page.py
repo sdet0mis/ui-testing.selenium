@@ -17,6 +17,9 @@ class SQLPage(BasePage):
         self.ENTER_BUTTON = (By.XPATH, "(//input[@type='submit'])[1]")
         self.RIGHT_HEADER = (By.XPATH, "(//td[@align='right'])[1]")
 
+    def find_login_field(self) -> str:
+        return self.find_element(self.LOGIN_FIELD)
+
     @allure.step("Ввести в поле Login {login}")
     def enter_login(self, login: str) -> None:
         self.fill_field(self.LOGIN_FIELD, login)

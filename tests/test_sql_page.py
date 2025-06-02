@@ -29,3 +29,15 @@ class TestSQLPage:
         nickname = right_header_text[-nickname_length:]
         assert nickname == sql_page.NICKNAME, \
             f"Некорректный никнейм: {nickname}"
+
+    @allure.title("Удаление фокуса из поля Login и проверка наличия скролла")
+    def test_remove_focus_from_login_field_and_check_scroll(
+        self, sql_page: SQLPage
+    ):
+        assert sql_page.element_is_focused(sql_page.LOGIN_FIELD), \
+            "В поле Login отсутствует фокус"
+        sql_page.remove_focus()
+        assert not sql_page.element_is_focused(sql_page.LOGIN_FIELD), \
+            "В поле Login присутствует фокус"
+        assert sql_page.page_is_scrollable(), \
+            "На странице отсутствует скролл"
