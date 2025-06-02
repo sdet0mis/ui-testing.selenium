@@ -44,6 +44,24 @@ class BasePage:
             "window.scrollTo(0, document.body.scrollHeight);"
         )
 
+    @allure.step("Проверить наличие скролла")
+    def page_is_scrollable(self) -> bool:
+        return self.driver.execute_script(
+            "return document.body.scrollHeight > window.innerHeight;"
+        )
+
+    @allure.step("Убрать фокус")
+    def remove_focus(self) -> None:
+        self.driver.execute_script(
+            "document.activeElement.blur();"
+        )
+
+    def element_is_focused(self, locator: tuple) -> bool:
+        return self.driver.execute_script(
+            "return document.activeElement === arguments[0];",
+            self.find_element(locator)
+        )
+
     def find_element(self, locator: tuple) -> WebElement:
         return self.wait.until(EC.presence_of_element_located(locator))
 
