@@ -1,6 +1,7 @@
 import allure
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 
@@ -17,7 +18,7 @@ class SQLPage(BasePage):
         self.ENTER_BUTTON = (By.XPATH, "(//input[@type='submit'])[1]")
         self.RIGHT_HEADER = (By.XPATH, "(//td[@align='right'])[1]")
 
-    def find_login_field(self) -> str:
+    def find_login_field(self) -> WebElement:
         return self.find_element(self.LOGIN_FIELD)
 
     @allure.step("Ввести в поле Login {login}")
@@ -32,5 +33,5 @@ class SQLPage(BasePage):
     def click_enter_button(self) -> None:
         self.click(self.ENTER_BUTTON)
 
-    def find_right_header(self) -> str:
+    def find_right_header(self) -> WebElement:
         return self.find_element(self.RIGHT_HEADER)
