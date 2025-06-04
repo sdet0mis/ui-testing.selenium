@@ -15,7 +15,9 @@ def driver(request: pytest.FixtureRequest) -> webdriver:
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Remote(
+        command_executor="http://localhost:4444", options=options
+    )
     request.node.driver = driver
     yield driver
     driver.quit()
