@@ -67,8 +67,8 @@ class TestLoginPage:
                 marks=pytest.mark.positive
             ),
             pytest.param(
-                Faker().user_name(),
-                Faker().password(),
+                "Faker().user_name()",
+                "Faker().password()",
                 marks=pytest.mark.negative
             )
         ]
