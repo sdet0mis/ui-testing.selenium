@@ -1,6 +1,7 @@
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from faker import Faker
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -60,3 +61,10 @@ def sql_page(driver: webdriver) -> SQLPage:
     sql_page = SQLPage(driver)
     sql_page.open_page()
     return sql_page
+
+
+@pytest.fixture()
+def credentials(request: pytest.FixtureRequest) -> tuple:
+    if request.param == "random":
+        return Faker().user_name(), Faker().password()
+    return request.param
