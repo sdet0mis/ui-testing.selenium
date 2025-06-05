@@ -1,6 +1,7 @@
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from faker import Faker
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -15,7 +16,9 @@ def driver(request: pytest.FixtureRequest) -> webdriver:
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Remote(
+        command_executor="http://localhost:4444", options=options
+    )
     request.node.driver = driver
     yield driver
     driver.quit()
@@ -58,3 +61,10 @@ def sql_page(driver: webdriver) -> SQLPage:
     sql_page = SQLPage(driver)
     sql_page.open_page()
     return sql_page
+
+
+@pytest.fixture
+def credentials(request: pytest.FixtureRequest) -> tuple:
+    if request.param == "wrong_credentials":
+        return Faker().user_name(), Faker().password()
+    return request.param

@@ -59,23 +59,17 @@ class TestLoginPage:
     @allure.title("Авторизация с разными данными")
     @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.parametrize(
-        "username, password",
+        "credentials",
         [
-            pytest.param(
-                "angular",
-                "password",
-                marks=pytest.mark.positive
-            ),
-            pytest.param(
-                Faker().user_name(),
-                Faker().password(),
-                marks=pytest.mark.negative
-            )
-        ]
+            pytest.param(("angular", "password"), marks=pytest.mark.positive),
+            pytest.param("wrong_credentials", marks=pytest.mark.negative)
+        ],
+        indirect=True
     )
     def test_login_with_various_credentials(
-        self, login_page: LoginPage, username: str, password: str
+        self, login_page: LoginPage, credentials: tuple
     ):
+        username, password = credentials
         login_page.enter_username_field(username)
         login_page.enter_password_field(password)
         login_page.enter_username_description_field(username)
