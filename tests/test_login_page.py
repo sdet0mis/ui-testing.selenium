@@ -62,7 +62,7 @@ class TestLoginPage:
         "credentials",
         [
             pytest.param(("angular", "password"), marks=pytest.mark.positive),
-            pytest.param("random", marks=pytest.mark.negative)
+            pytest.param("wrong_credentials", marks=pytest.mark.negative)
         ],
         indirect=True
     )

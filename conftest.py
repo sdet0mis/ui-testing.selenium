@@ -65,6 +65,6 @@ def sql_page(driver: webdriver) -> SQLPage:
 
 @pytest.fixture
 def credentials(request: pytest.FixtureRequest) -> tuple:
-    if request.param == "random":
+    if request.param == "wrong_credentials":
         return Faker().user_name(), Faker().password()
     return request.param
