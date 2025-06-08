@@ -1,23 +1,26 @@
+import os
+
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from dotenv import load_dotenv
 from faker import Faker
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 from pages.main_page import MainPage
 from pages.lifetime_membership_page import LifetimeMembershipPage
 from pages.login_page import LoginPage
 from pages.sql_page import SQLPage
+from utils.driver_factory import DriverFactory
+
+load_dotenv()
 
 
-@pytest.fixture
+@pytest.fixture(params=os.getenv("BROWSERS").split(","))
 def driver(request: pytest.FixtureRequest) -> webdriver:
-    options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--window-size=1920,1080")
-    driver = webdriver.Remote(
-        command_executor="http://localhost:4444", options=options
+    driver = DriverFactory.get_driver(
+        grid=True if os.getenv("GRID") else False,
+        browser=request.param
     )
     request.node.driver = driver
     yield driver
