@@ -17,6 +17,9 @@ class FramesAndWindowsPage(BasePage):
             self.find_element(self.IFRAME)
         )
 
+    def new_browser_tab_link_is_displayed(self) -> None:
+        self.element_is_displayed(self.NEW_BROWSER_TAB_LINK)
+
     @allure.step("Нажать на ссылку New Browser Tab")
     def click_new_browser_tab_link(self) -> None:
         self.click(self.NEW_BROWSER_TAB_LINK)

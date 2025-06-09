@@ -13,12 +13,12 @@ class TestFramesAndWindowsPage:
     def test_open_new_browser_tab(
         self, frames_and_windows_page: FramesAndWindowsPage
     ):
-        window1 = frames_and_windows_page.get_current_window()
         frames_and_windows_page.switch_to_frame()
-        frames_and_windows_page.click_new_browser_tab_link()
-        window2 = frames_and_windows_page.get_all_windows()[1]
-        frames_and_windows_page.switch_to_window(window2)
-        frames_and_windows_page.click_new_browser_tab_link()
-        window3 = frames_and_windows_page.get_all_windows()[2]
-        assert window3 != window2 and window3 != window1, \
-            "Новая вкладка не открылась"
+        for _ in range(2):
+            windows = frames_and_windows_page.get_all_windows()
+            frames_and_windows_page.click_new_browser_tab_link()
+            windows_after_click = frames_and_windows_page.get_all_windows()
+            assert len(windows_after_click) == len(windows) + 1, \
+                "Новая вкладка не открылась"
+            frames_and_windows_page.switch_to_window(windows_after_click[-1])
+            frames_and_windows_page.new_browser_tab_link_is_displayed()
