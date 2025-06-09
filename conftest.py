@@ -11,6 +11,7 @@ from pages.main_page import MainPage
 from pages.lifetime_membership_page import LifetimeMembershipPage
 from pages.login_page import LoginPage
 from pages.sql_page import SQLPage
+from pages.droppable_page import DroppablePage
 from utils.driver_factory import DriverFactory
 
 load_dotenv()
@@ -64,6 +65,13 @@ def sql_page(driver: webdriver) -> SQLPage:
     sql_page = SQLPage(driver)
     sql_page.open_page()
     return sql_page
+
+
+@pytest.fixture
+def droppable_page(driver: webdriver) -> DroppablePage:
+    droppable_page = DroppablePage(driver)
+    droppable_page.open_page()
+    return droppable_page
 
 
 @pytest.fixture
