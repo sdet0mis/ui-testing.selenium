@@ -12,6 +12,7 @@ from pages.lifetime_membership_page import LifetimeMembershipPage
 from pages.login_page import LoginPage
 from pages.sql_page import SQLPage
 from pages.droppable_page import DroppablePage
+from pages.frames_and_windows_page import FramesAndWindowsPage
 from utils.driver_factory import DriverFactory
 
 load_dotenv()
@@ -72,6 +73,13 @@ def droppable_page(driver: webdriver) -> DroppablePage:
     droppable_page = DroppablePage(driver)
     droppable_page.open_page()
     return droppable_page
+
+
+@pytest.fixture
+def frames_and_windows_page(driver: webdriver) -> FramesAndWindowsPage:
+    frames_and_windows_page = FramesAndWindowsPage(driver)
+    frames_and_windows_page.open_page()
+    return frames_and_windows_page
 
 
 @pytest.fixture
