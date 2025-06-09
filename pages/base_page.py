@@ -30,9 +30,6 @@ class BasePage:
     def get_page_url(self) -> str:
         return self.driver.current_url
 
-    def get_current_window(self) -> str:
-        return self.driver.current_window_handle
-
     def get_all_windows(self) -> list:
         return self.driver.window_handles
 
