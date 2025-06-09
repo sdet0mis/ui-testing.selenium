@@ -32,11 +32,5 @@ class AlertPage(BasePage):
     def click_display_alert_button(self) -> None:
         self.click(self.DISPLAY_ALERT_BUTTON)
 
-    @allure.step("Ввести текст {text} в алерт")
-    def enter_text_in_alert(self, text: str) -> None:
-        alert = self.get_alert()
-        alert.send_keys(text)
-        alert.accept()
-
     def find_alert_text(self) -> WebElement:
         return self.find_element(self.ALERT_TEXT)
