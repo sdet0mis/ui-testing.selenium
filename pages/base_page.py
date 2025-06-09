@@ -30,6 +30,12 @@ class BasePage:
     def get_page_url(self) -> str:
         return self.driver.current_url
 
+    def get_all_windows(self) -> list:
+        return self.driver.window_handles
+
+    def switch_to_window(self, window: str) -> None:
+        self.driver.switch_to.window(window)
+
     def get_cookie(self, name: str) -> dict:
         return self.driver.get_cookie(name)
 
