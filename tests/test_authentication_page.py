@@ -15,8 +15,7 @@ class TestAuthenticationPage:
         authentication_page.open_image_page()
         authentication_page.authenticated_image_is_displayed()
         image_attribute = (
-            authentication_page.find_authenticated_image()
-            .get_attribute("src")
+            authentication_page.find_authenticated_image().get_attribute("src")
         )
         assert authentication_page.CREDENTIALS in image_attribute, \
             f"Некорректная картинка: {image_attribute}"
