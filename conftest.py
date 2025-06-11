@@ -14,6 +14,7 @@ from pages.sql_page import SQLPage
 from pages.droppable_page import DroppablePage
 from pages.frames_and_windows_page import FramesAndWindowsPage
 from pages.alert_page import AlertPage
+from pages.authentication_page import AuthenticationPage
 from utils.driver_factory import DriverFactory
 
 load_dotenv()
@@ -88,6 +89,13 @@ def alert_page(driver: webdriver) -> AlertPage:
     alert_page = AlertPage(driver)
     alert_page.open_page()
     return alert_page
+
+
+@pytest.fixture
+def authentication_page(driver: webdriver) -> AuthenticationPage:
+    authentication_page = AuthenticationPage(driver)
+    authentication_page.open_page()
+    return authentication_page
 
 
 @pytest.fixture
