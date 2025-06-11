@@ -85,3 +85,12 @@ class BasePage:
 
     def click(self, locator: tuple) -> None:
         self.wait.until(EC.element_to_be_clickable(locator)).click()
+
+    def get_alert(self) -> WebElement:
+        return self.wait.until(EC.alert_is_present())
+
+    @allure.step("Ввести текст {text} в алерт")
+    def enter_text_in_alert(self, text: str) -> None:
+        alert = self.get_alert()
+        alert.send_keys(text)
+        alert.accept()
