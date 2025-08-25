@@ -1,4 +1,5 @@
 import os
+from dataclasses import make_dataclass, field
 
 import allure
 import pytest
@@ -15,12 +16,20 @@ from pages.droppable_page import DroppablePage
 from pages.frames_and_windows_page import FramesAndWindowsPage
 from pages.alert_page import AlertPage
 from pages.authentication_page import AuthenticationPage
+from pages.banking_app_page import BankingAppPage
+from pages.sample_form_page import SampleFormPage
+from pages.bank_manager_login_page import BankManagerLoginPage
+from pages.add_customer_page import AddCustomerPage
+from pages.open_account_page import OpenAccountPage
+from pages.customer_login_page import CustomerLoginPage
+from pages.customer_account_page import CustomerAccountPage
+from pages.customers_page import CustomersPage
 from utils.driver_factory import DriverFactory
 
 load_dotenv()
 
 
-@pytest.fixture(params=os.getenv("BROWSERS").split(","))
+@pytest.fixture(params=os.getenv("BROWSERS").split(","), scope="session")
 def driver(request: pytest.FixtureRequest) -> webdriver:
     driver = DriverFactory.get_driver(
         grid=True if os.getenv("GRID") else False,
@@ -96,6 +105,70 @@ def authentication_page(driver: webdriver) -> AuthenticationPage:
     authentication_page = AuthenticationPage(driver)
     authentication_page.open_page()
     return authentication_page
+
+
+@pytest.fixture
+def banking_app_page(driver: webdriver) -> BankingAppPage:
+    banking_app_page = BankingAppPage(driver)
+    banking_app_page.open_page()
+    return banking_app_page
+
+
+@pytest.fixture
+def sample_form_page(driver: webdriver) -> SampleFormPage:
+    sample_form_page = SampleFormPage(driver)
+    return sample_form_page
+
+
+@pytest.fixture
+def bank_manager_login_page(driver: webdriver) -> BankManagerLoginPage:
+    bank_manager_login_page = BankManagerLoginPage(driver)
+    return bank_manager_login_page
+
+
+@pytest.fixture
+def add_customer_page(driver: webdriver) -> AddCustomerPage:
+    add_customer_page = AddCustomerPage(driver)
+    return add_customer_page
+
+
+@pytest.fixture
+def open_account_page(driver: webdriver) -> OpenAccountPage:
+    open_account_page = OpenAccountPage(driver)
+    return open_account_page
+
+
+@pytest.fixture
+def customer_login_page(driver: webdriver) -> CustomerLoginPage:
+    customer_login_page = CustomerLoginPage(driver)
+    return customer_login_page
+
+
+@pytest.fixture
+def customer_account_page(driver: webdriver) -> CustomerAccountPage:
+    customer_account_page = CustomerAccountPage(driver)
+    return customer_account_page
+
+
+@pytest.fixture
+def customers_page(driver: webdriver) -> CustomersPage:
+    customers_page = CustomersPage(driver)
+    return customers_page
+
+
+@pytest.fixture(scope="session")
+def customer() -> any:
+    if not hasattr(customer, "created_customer"):
+        Customer = make_dataclass(
+            "Customer",
+            [
+                ("first_name", str, field(default_factory=lambda: Faker().first_name())), # noqa
+                ("last_name", str, field(default_factory=lambda: Faker().last_name())), # noqa
+                ("post_code", str, field(default_factory=lambda: Faker().postcode())),  # noqa
+            ]
+        )
+        customer.created_customer = Customer()
+    return customer.created_customer
 
 
 @pytest.fixture

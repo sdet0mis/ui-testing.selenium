@@ -4,6 +4,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.select import Select
 
 
 class BasePage:
@@ -83,6 +84,9 @@ class BasePage:
             data
         )
 
+    def clear_field(self, locator: tuple) -> None:
+        self.wait.until(EC.element_to_be_clickable(locator)).clear()
+
     def click(self, locator: tuple) -> None:
         self.wait.until(EC.element_to_be_clickable(locator)).click()
 
@@ -94,3 +98,6 @@ class BasePage:
         alert = self.get_alert()
         alert.send_keys(text)
         alert.accept()
+
+    def select(self, locator: tuple) -> Select:
+        return Select(self.wait.until(EC.element_to_be_clickable(locator)))
