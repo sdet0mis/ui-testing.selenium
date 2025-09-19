@@ -1,6 +1,6 @@
 import allure
-from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,12 +8,10 @@ from selenium.webdriver.support.select import Select
 
 
 class BasePage:
-
-    def __init__(self, driver: webdriver) -> None:
+    def __init__(self, driver: WebDriver) -> None:
         self.driver = driver
         self.wait = WebDriverWait(driver, timeout=10, poll_frequency=1)
         self.action = ActionChains(driver)
-        self.URL = None
 
     def open_page(self) -> None:
         with allure.step(f"Открыть страницу {self.URL}"):

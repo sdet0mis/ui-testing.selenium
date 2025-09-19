@@ -1,5 +1,5 @@
 import allure
-from selenium import webdriver
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -7,7 +7,7 @@ from pages.base_page import BasePage
 
 
 class DroppablePage(BasePage):
-    def __init__(self, driver: webdriver) -> None:
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
         self.URL = "https://way2automation.com/way2auto_jquery/droppable.php"
         self.IFRAME = (By.XPATH, "//iframe[@class='demo-frame']")

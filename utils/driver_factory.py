@@ -1,6 +1,7 @@
 import platform
 
 from selenium import webdriver
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
@@ -10,7 +11,7 @@ from selenium.webdriver.common.options import ArgOptions
 
 class DriverFactory:
     @staticmethod
-    def get_driver(grid: bool, browser: str) -> webdriver:
+    def get_driver(grid: bool, browser: str) -> WebDriver:
         options = DriverFactory._options(browser)
         if browser == "ie":
             if not grid and platform.system() != "Windows":
@@ -49,7 +50,7 @@ class DriverFactory:
         options.require_window_focus = True
 
     @staticmethod
-    def _driver(browser: str, options: ArgOptions) -> webdriver:
+    def _driver(browser: str, options: ArgOptions) -> WebDriver:
         if browser == "chrome":
             return webdriver.Chrome(options)
         elif browser == "firefox":

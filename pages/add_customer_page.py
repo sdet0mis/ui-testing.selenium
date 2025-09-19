@@ -1,12 +1,12 @@
 import allure
-from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.bank_manager_login_page import BankManagerLoginPage
 
 
 class AddCustomerPage(BankManagerLoginPage):
-    def __init__(self, driver: webdriver) -> None:
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
         self.URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/addCust" # noqa
         self.FIRST_NAME_FIELD = (By.XPATH, "//input[@ng-model='fName']")

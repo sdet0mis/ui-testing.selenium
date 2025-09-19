@@ -1,12 +1,12 @@
 import allure
-from selenium import webdriver
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 
 from pages.bank_manager_login_page import BankManagerLoginPage
 
 
 class CustomersPage(BankManagerLoginPage):
-    def __init__(self, driver: webdriver) -> None:
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
         self.URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/list"  # noqa
         self.SEARCH_CUSTOMER_FIELD = (
@@ -34,7 +34,7 @@ class CustomersPage(BankManagerLoginPage):
     def click_delete_customer_button(self) -> None:
         self.click(self.DELETE_CUSTOMER_BUTTON)
 
-    def get_customers_names(self) -> list:
+    def get_customers_names(self) -> list[str]:
         return [
             names.text for names in self.find_elements(self.CUSTOMERS_NAMES)
         ]

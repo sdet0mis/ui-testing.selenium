@@ -1,15 +1,15 @@
 import time
 
 import allure
-from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 
 
 class CustomerAccountPage(BasePage):
-    def __init__(self, driver: webdriver) -> None:
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
         self.URL = "https://www.way2automation.com/angularjs-protractor/banking/#/account" # noqa
         self.CUSTOMER_WELCOME_MESSAGE = (By.XPATH, "//strong/span")
@@ -106,7 +106,7 @@ class CustomerAccountPage(BasePage):
         table_balance = 0
         transactions = [
             transaction.text for transaction in self.get_table_transactions()
-            ]
+        ]
         for transaction in transactions:
             t_type, amount = transaction.split()[-1], int(
                 transaction.split()[-2]
