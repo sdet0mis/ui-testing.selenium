@@ -28,16 +28,17 @@ class DriverFactory:
 
     @staticmethod
     def _options(browser: str) -> ArgOptions:
-        if browser == "chrome":
-            return ChromeOptions()
-        elif browser == "firefox":
-            return FirefoxOptions()
-        elif browser == "edge":
-            return EdgeOptions()
-        elif browser == "ie":
-            return IEOptions()
-        else:
-            raise Exception("Неккоректное название браузера")
+        match browser:
+            case "chrome":
+                return ChromeOptions()
+            case "firefox":
+                return FirefoxOptions()
+            case "edge":
+                return EdgeOptions()
+            case "ie":
+                return IEOptions()
+            case _:
+                raise ValueError(f"Некорректное название браузера: {browser}")
 
     @staticmethod
     def _arguments(options: ArgOptions) -> None:
@@ -51,11 +52,14 @@ class DriverFactory:
 
     @staticmethod
     def _driver(browser: str, options: ArgOptions) -> WebDriver:
-        if browser == "chrome":
-            return webdriver.Chrome(options)
-        elif browser == "firefox":
-            return webdriver.Firefox(options)
-        elif browser == "edge":
-            return webdriver.Edge(options)
-        elif browser == "ie":
-            return webdriver.Ie(options, executable_path="IEDriverServer.exe")
+        match browser:
+            case "chrome":
+                return webdriver.Chrome(options)
+            case "firefox":
+                return webdriver.Firefox(options)
+            case "edge":
+                return webdriver.Edge(options)
+            case "ie":
+                return webdriver.Ie(
+                    options, executable_path="IEDriverServer.exe"
+                )
